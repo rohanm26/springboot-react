@@ -5,7 +5,8 @@ import '../App.css';
 import { EmployeeDisplay } from './EmployeeDisplay';
 import { EmployeeForm } from './EmployeeForm';
 import { TotalEmployees } from './TotalEmployees';
-import {Home} from './Home';
+import { Home } from './Home';
+import { LoginPage } from './LoginPage';
 
 export class App extends Component {
   state = {
@@ -22,10 +23,15 @@ export class App extends Component {
     this.setState({
       editEmployee: {
         ...this.state.editEmployee,
-      [e.target.name]: e.target.value,
+        [e.target.name]: e.target.value,
       },
       [e.target.name]: e.target.value
     })
+  }
+
+  loginSubmit = (e) => {
+    e.preventDefault();
+    console.log("Logged in: ")
   }
 
   createEmployee = (e) => {
@@ -42,7 +48,7 @@ export class App extends Component {
     }
     axios.post("http://localhost:9450/createEmployee", newEmployee)
       .then(res => console.log(res.data))
-      .then(() => <Redirect to = {{ pathname: "/" }} />)
+      .then(() => <Redirect to={{ pathname: "/" }} />)
   }
 
   displayEmployee = (e) => {
@@ -91,7 +97,7 @@ export class App extends Component {
     return (
       <Router>
         <Switch>
-          <Route path="/home" render={() => <Home/>} />
+          <Route path="/home" render={() => <Home />} />
           <Route path="/register" render={() => <EmployeeForm
             handleChange={this.handleChange}
             createEmployee={this.createEmployee}
